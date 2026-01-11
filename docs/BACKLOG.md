@@ -42,41 +42,50 @@
 
 ---
 
-## Phase 1: Financial MVP (Next)
+## Phase 1: Financial MVP - COMPLETE
 
 > Goal: Basic accounts payable/receivable with cash flow visibility
 
 ### 1.1 Foundation
-- [ ] Add `accounts` table (expense/revenue categories)
-- [ ] Add `transactions` table (payables & receivables)
-- [ ] Default account seeding (common categories)
+- [x] Add `accounts` table (expense/revenue categories)
+- [x] Add `transactions` table (payables & receivables)
+- [x] Default account seeding (common categories)
+- [x] Financial validators and helpers
 
 ### 1.2 Accounts (Categories)
-- [ ] Account list page
-- [ ] Create/edit account form
-- [ ] Account types: expense, revenue, cost
+- [x] Account list page with type tabs
+- [x] Create/edit account form
+- [x] Account types: expense, revenue, cost
+- [x] System accounts protection
 
 ### 1.3 Accounts Payable
-- [ ] Payable list with filters (status, date, supplier)
-- [ ] Create payable form (description, amount, due date, supplier, category)
-- [ ] Mark as paid action
-- [ ] Overdue highlighting
+- [x] Payable list with filters (status, date, supplier)
+- [x] Create payable form (description, amount, due date, supplier, category)
+- [x] Mark as paid action (full or partial)
+- [x] Overdue highlighting
+- [x] Payment method tracking
+- [x] Payable detail page
 
 ### 1.4 Accounts Receivable
-- [ ] Receivable list with filters (status, date, client)
-- [ ] Create receivable form (description, amount, due date, client, category)
-- [ ] Mark as received action
-- [ ] Overdue highlighting
+- [x] Receivable list with filters (status, date, client)
+- [x] Create receivable form (description, amount, due date, client, category)
+- [x] Mark as received action (full or partial)
+- [x] Overdue highlighting
+- [x] Payment method tracking
+- [x] Receivable detail page
 
 ### 1.5 Cash Flow View
-- [ ] Cash flow page with timeline view
-- [ ] Daily in/out visualization
-- [ ] Projected balance calculation
+- [x] Cash flow page with chart + table view
+- [x] Date range selector (week/month/quarter)
+- [x] Daily in/out visualization (bar chart)
+- [x] Running balance calculation
+- [x] Projected balance toggle
 
 ### 1.6 Financial Dashboard
-- [ ] Balance summary widget (current, projected, payable, receivable)
-- [ ] Overdue items widget
-- [ ] Upcoming due dates widget
+- [x] Balance summary widget (payable, receivable, projected)
+- [x] Overdue items widget
+- [x] Upcoming due dates widget (next 7 days)
+- [x] Quick action buttons
 
 ---
 
@@ -104,8 +113,8 @@
 
 ### 2.4 Enhancements
 - [ ] Recurring transactions
-- [ ] Payment methods
-- [ ] Partial payments
+- [x] Payment methods (moved to Phase 1)
+- [x] Partial payments (moved to Phase 1)
 - [ ] Cash health score widget
 
 ---
@@ -167,10 +176,10 @@
 
 ## Priority Order
 
-1. **Phase 1.1-1.4** - Core transactions (P0)
-2. **Phase 1.5** - Cash flow view (P0)
-3. **Phase 1.6** - Financial dashboard (P0)
-4. **Phase 2.1** - DRE (P1)
+1. ~~**Phase 1.1-1.4** - Core transactions (P0)~~ COMPLETE
+2. ~~**Phase 1.5** - Cash flow view (P0)~~ COMPLETE
+3. ~~**Phase 1.6** - Financial dashboard (P0)~~ COMPLETE
+4. **Phase 2.1** - DRE (P1) - NEXT
 5. **Phase 2.2** - Quotes (P1)
 6. **Phase 2.3-2.4** - Invoice & enhancements (P2)
 7. **Phase 3** - Inventory (P1)
@@ -180,8 +189,10 @@
 
 ## Go-to-Market Milestone
 
-**Minimum for launch:** Phase 0 + Phase 1 complete
-- User can manage clients/suppliers
-- User can upload documents
-- User can track payables/receivables
-- User can see cash flow projection
+**Minimum for launch:** Phase 0 + Phase 1 complete - ACHIEVED
+- [x] User can manage clients/suppliers
+- [x] User can upload documents
+- [x] User can track payables/receivables
+- [x] User can see cash flow projection
+- [x] User can track partial payments
+- [x] User can select payment methods

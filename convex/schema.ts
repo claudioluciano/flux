@@ -24,6 +24,39 @@ const documentCategoryValidator = v.union(
   v.literal("other")
 );
 
+// Account type validator
+const accountTypeValidator = v.union(
+  v.literal("revenue"),
+  v.literal("expense"),
+  v.literal("cost")
+);
+
+// Transaction type validator
+const transactionTypeValidator = v.union(
+  v.literal("payable"),
+  v.literal("receivable")
+);
+
+// Transaction status validator
+const transactionStatusValidator = v.union(
+  v.literal("pending"),
+  v.literal("partial"),
+  v.literal("paid"),
+  v.literal("overdue"),
+  v.literal("cancelled")
+);
+
+// Payment method validator
+const paymentMethodValidator = v.union(
+  v.literal("cash"),
+  v.literal("pix"),
+  v.literal("transfer"),
+  v.literal("credit_card"),
+  v.literal("debit_card"),
+  v.literal("boleto"),
+  v.literal("check")
+);
+
 const schema = defineSchema(
   {
     // Entities: unified table for clients and suppliers
@@ -131,6 +164,80 @@ const schema = defineSchema(
         searchField: "name",
         filterFields: ["organizationId", "category", "isActive"],
       }),
+
+    // Accounts: chart of accounts for categorization
+    accounts: defineTable({
+      organizationId: v.string(),
+
+      // Identity
+      code: v.string(), // e.g., "001", "002"
+      name: v.string(), // e.g., "Vendas de Produtos"
+      type: accountTypeValidator,
+      description: v.optional(v.string()),
+
+      // Flags
+      isSystem: v.boolean(), // Pre-seeded accounts
+      isActive: v.boolean(),
+
+      // Audit
+      createdAt: v.number(),
+      updatedAt: v.number(),
+      createdBy: v.string(),
+      updatedBy: v.string(),
+    })
+      .index("by_organization", ["organizationId", "isActive"])
+      .index("by_organization_type", ["organizationId", "type", "isActive"])
+      .index("by_organization_code", ["organizationId", "code"])
+      .searchIndex("search_accounts", {
+        searchField: "name",
+        filterFields: ["organizationId"],
+      }),
+
+    // Transactions: payables and receivables
+    transactions: defineTable({
+      organizationId: v.string(),
+      type: transactionTypeValidator,
+
+      // Relations
+      entityId: v.optional(v.id("entities")), // Client or Supplier
+      accountId: v.optional(v.id("accounts")), // Category
+
+      // Details
+      description: v.string(),
+      notes: v.optional(v.string()),
+
+      // Values
+      amount: v.number(), // Total amount
+      paidAmount: v.number(), // Amount paid so far (for partial payments)
+
+      // Dates
+      issueDate: v.number(), // When created
+      dueDate: v.number(), // When due
+      paidAt: v.optional(v.number()), // When fully paid
+
+      // Payment
+      status: transactionStatusValidator,
+      paymentMethod: v.optional(paymentMethodValidator),
+
+      // Metadata
+      tags: v.optional(v.array(v.string())),
+      isActive: v.boolean(),
+
+      // Audit
+      createdAt: v.number(),
+      updatedAt: v.number(),
+      createdBy: v.string(),
+      updatedBy: v.string(),
+    })
+      .index("by_organization", ["organizationId", "isActive"])
+      .index("by_organization_type", ["organizationId", "type", "isActive"])
+      .index("by_organization_status", ["organizationId", "status", "isActive"])
+      .index("by_organization_dueDate", ["organizationId", "dueDate"])
+      .index("by_entity", ["entityId"])
+      .searchIndex("search_transactions", {
+        searchField: "description",
+        filterFields: ["organizationId", "type"],
+      }),
   },
   { strictTableNameTypes: true }
 );
@@ -138,4 +245,11 @@ const schema = defineSchema(
 export default schema;
 
 // Export validators for use in functions
-export { addressValidator, documentCategoryValidator };
+export {
+  addressValidator,
+  documentCategoryValidator,
+  accountTypeValidator,
+  transactionTypeValidator,
+  transactionStatusValidator,
+  paymentMethodValidator,
+};

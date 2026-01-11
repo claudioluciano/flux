@@ -8,15 +8,20 @@
  * @module
  */
 
+import type * as accounts_mutations from "../accounts/mutations.js";
+import type * as accounts_queries from "../accounts/queries.js";
 import type * as auth from "../auth.js";
 import type * as documents_mutations from "../documents/mutations.js";
 import type * as documents_queries from "../documents/queries.js";
 import type * as entities_mutations from "../entities/mutations.js";
 import type * as entities_queries from "../entities/queries.js";
 import type * as http from "../http.js";
+import type * as lib_financialValidators from "../lib/financialValidators.js";
 import type * as lib_permissions from "../lib/permissions.js";
 import type * as lib_validators from "../lib/validators.js";
 import type * as testingFunctions from "../testingFunctions.js";
+import type * as transactions_mutations from "../transactions/mutations.js";
+import type * as transactions_queries from "../transactions/queries.js";
 
 import type {
   ApiFromModules,
@@ -25,15 +30,20 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  "accounts/mutations": typeof accounts_mutations;
+  "accounts/queries": typeof accounts_queries;
   auth: typeof auth;
   "documents/mutations": typeof documents_mutations;
   "documents/queries": typeof documents_queries;
   "entities/mutations": typeof entities_mutations;
   "entities/queries": typeof entities_queries;
   http: typeof http;
+  "lib/financialValidators": typeof lib_financialValidators;
   "lib/permissions": typeof lib_permissions;
   "lib/validators": typeof lib_validators;
   testingFunctions: typeof testingFunctions;
+  "transactions/mutations": typeof transactions_mutations;
+  "transactions/queries": typeof transactions_queries;
 }>;
 
 /**
