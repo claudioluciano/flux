@@ -145,7 +145,9 @@ export function PaymentDialog({
               onValueChange={(value) => setPaymentMethod(value as PaymentMethod)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Selecione a forma de pagamento" />
+                <SelectValue>
+                  {paymentMethod ? PAYMENT_METHOD_LABELS[paymentMethod] : "Selecione a forma de pagamento"}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {Object.entries(PAYMENT_METHOD_LABELS).map(([value, label]) => (

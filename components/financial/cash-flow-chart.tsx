@@ -63,8 +63,9 @@ export function CashFlowChart({ data }: CashFlowChartProps) {
           className="text-muted-foreground"
         />
         <Tooltip
-          formatter={(value: number, name: string) => {
-            const absValue = Math.abs(value);
+          formatter={(value, name) => {
+            const numValue = typeof value === "number" ? value : 0;
+            const absValue = Math.abs(numValue);
             const label =
               name === "inflowDisplay"
                 ? "Entradas"

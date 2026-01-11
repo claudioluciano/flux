@@ -173,7 +173,13 @@ export function TransactionForm({ transactionId, type, mode }: TransactionFormPr
                 onValueChange={(value) => setValue("entityId", value || undefined)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder={`Selecione um ${entityLabel.toLowerCase()}`} />
+                  <SelectValue>
+                    {selectedEntityId
+                      ? entities?.find((e) => e._id === selectedEntityId)?.tradeName ||
+                        entities?.find((e) => e._id === selectedEntityId)?.name ||
+                        `Selecione um ${entityLabel.toLowerCase()}`
+                      : `Selecione um ${entityLabel.toLowerCase()}`}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {entities?.map((entity) => (
@@ -192,7 +198,14 @@ export function TransactionForm({ transactionId, type, mode }: TransactionFormPr
                 onValueChange={(value) => setValue("accountId", value || undefined)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione uma categoria" />
+                  <SelectValue>
+                    {selectedAccountId
+                      ? (() => {
+                          const account = accounts?.find((a) => a._id === selectedAccountId);
+                          return account ? `${account.code} - ${account.name}` : "Selecione uma categoria";
+                        })()
+                      : "Selecione uma categoria"}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {accounts?.map((account) => (
