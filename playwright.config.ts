@@ -42,7 +42,7 @@ export default defineConfig({
       name: "setup",
       testMatch: /.*\.setup\.ts/,
     },
-    // Main tests that depend on auth (excludes unauthenticated tests)
+    // Main tests that depend on auth
     {
       name: "chromium",
       use: {
@@ -50,13 +50,6 @@ export default defineConfig({
         storageState: "e2e/.auth/user.json",
       },
       dependencies: ["setup"],
-      testIgnore: /.*\.unauth\.spec\.ts/,
-    },
-    // Unauthenticated tests (login/register)
-    {
-      name: "unauthenticated",
-      use: { ...devices["Desktop Chrome"] },
-      testMatch: /.*\.unauth\.spec\.ts/,
     },
   ],
 });

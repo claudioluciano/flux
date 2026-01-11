@@ -113,3 +113,44 @@ export function generateIndividualData() {
     phone: generateBrazilianPhone(),
   };
 }
+
+// Document categories matching schema
+export const DOCUMENT_CATEGORIES = [
+  "contrato_social",
+  "alteracao_social",
+  "cnpj",
+  "contrato_cliente",
+  "alvara",
+  "certidao",
+  "other",
+] as const;
+
+export type DocumentCategory = (typeof DOCUMENT_CATEGORIES)[number];
+
+// Document test data generator
+export function generateDocumentData() {
+  const pastDate = faker.date.past();
+  const futureDate = faker.date.future();
+
+  return {
+    name: faker.lorem.words(3),
+    category: faker.helpers.arrayElement(DOCUMENT_CATEGORIES),
+    description: faker.lorem.sentence(),
+    issueDate: pastDate.toISOString().split("T")[0],
+    expirationDate: futureDate.toISOString().split("T")[0],
+  };
+}
+
+// Generate document with specific expiration status
+export function generateExpiringDocumentData(daysUntilExpiration: number) {
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + daysUntilExpiration);
+
+  return {
+    name: faker.lorem.words(3),
+    category: faker.helpers.arrayElement(DOCUMENT_CATEGORIES),
+    description: faker.lorem.sentence(),
+    issueDate: faker.date.past().toISOString().split("T")[0],
+    expirationDate: expirationDate.toISOString().split("T")[0],
+  };
+}
