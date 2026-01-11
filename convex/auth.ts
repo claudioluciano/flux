@@ -21,6 +21,11 @@ export const createAuthOptions = (ctx: GenericCtx<DataModel>) => {
   return {
     baseURL: siteUrl,
     database: authComponent.adapter(ctx),
+    trustedOrigins: [
+      "http://localhost:3000",
+      "https://flux.sheltech.app",
+      "https://flux-dev.sheltech.app",
+    ],
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: false,
