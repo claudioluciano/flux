@@ -1486,4 +1486,83 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
         Name
       >;
     };
+    lib: {
+      getMemberByUserAndOrg: FunctionReference<
+        "query",
+        "internal",
+        { organizationId: string; userId: string },
+        null | {
+          _creationTime: number;
+          _id: string;
+          createdAt: number;
+          organizationId: string;
+          role: string;
+          userId: string;
+        },
+        Name
+      >;
+      getOrganization: FunctionReference<
+        "query",
+        "internal",
+        { organizationId: string },
+        null | {
+          _creationTime: number;
+          _id: string;
+          createdAt: number;
+          logo?: null | string;
+          metadata?: null | string;
+          name: string;
+          slug: string;
+        },
+        Name
+      >;
+      listMembersByOrg: FunctionReference<
+        "query",
+        "internal",
+        { organizationId: string },
+        Array<{
+          _creationTime: number;
+          _id: string;
+          createdAt: number;
+          organizationId: string;
+          role: string;
+          userId: string;
+        }>,
+        Name
+      >;
+      listOrganizationsByUser: FunctionReference<
+        "query",
+        "internal",
+        { userId: string },
+        Array<{
+          _creationTime: number;
+          _id: string;
+          createdAt: number;
+          logo?: null | string;
+          metadata?: null | string;
+          name: string;
+          role: string;
+          slug: string;
+        }>,
+        Name
+      >;
+      listSessionsByUser: FunctionReference<
+        "query",
+        "internal",
+        { userId: string },
+        Array<{
+          _creationTime: number;
+          _id: string;
+          activeOrganizationId?: null | string;
+          createdAt: number;
+          expiresAt: number;
+          ipAddress?: null | string;
+          token: string;
+          updatedAt: number;
+          userAgent?: null | string;
+          userId: string;
+        }>,
+        Name
+      >;
+    };
   };

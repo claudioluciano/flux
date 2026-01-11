@@ -9,7 +9,14 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as documents_mutations from "../documents/mutations.js";
+import type * as documents_queries from "../documents/queries.js";
+import type * as entities_mutations from "../entities/mutations.js";
+import type * as entities_queries from "../entities/queries.js";
 import type * as http from "../http.js";
+import type * as lib_permissions from "../lib/permissions.js";
+import type * as lib_validators from "../lib/validators.js";
+import type * as testingFunctions from "../testingFunctions.js";
 
 import type {
   ApiFromModules,
@@ -19,7 +26,14 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  "documents/mutations": typeof documents_mutations;
+  "documents/queries": typeof documents_queries;
+  "entities/mutations": typeof entities_mutations;
+  "entities/queries": typeof entities_queries;
   http: typeof http;
+  "lib/permissions": typeof lib_permissions;
+  "lib/validators": typeof lib_validators;
+  testingFunctions: typeof testingFunctions;
 }>;
 
 /**
@@ -1504,6 +1518,80 @@ export declare const components: {
           onUpdateHandle?: string;
         },
         any
+      >;
+    };
+    lib: {
+      getMemberByUserAndOrg: FunctionReference<
+        "query",
+        "internal",
+        { organizationId: string; userId: string },
+        null | {
+          _creationTime: number;
+          _id: string;
+          createdAt: number;
+          organizationId: string;
+          role: string;
+          userId: string;
+        }
+      >;
+      getOrganization: FunctionReference<
+        "query",
+        "internal",
+        { organizationId: string },
+        null | {
+          _creationTime: number;
+          _id: string;
+          createdAt: number;
+          logo?: null | string;
+          metadata?: null | string;
+          name: string;
+          slug: string;
+        }
+      >;
+      listMembersByOrg: FunctionReference<
+        "query",
+        "internal",
+        { organizationId: string },
+        Array<{
+          _creationTime: number;
+          _id: string;
+          createdAt: number;
+          organizationId: string;
+          role: string;
+          userId: string;
+        }>
+      >;
+      listOrganizationsByUser: FunctionReference<
+        "query",
+        "internal",
+        { userId: string },
+        Array<{
+          _creationTime: number;
+          _id: string;
+          createdAt: number;
+          logo?: null | string;
+          metadata?: null | string;
+          name: string;
+          role: string;
+          slug: string;
+        }>
+      >;
+      listSessionsByUser: FunctionReference<
+        "query",
+        "internal",
+        { userId: string },
+        Array<{
+          _creationTime: number;
+          _id: string;
+          activeOrganizationId?: null | string;
+          createdAt: number;
+          expiresAt: number;
+          ipAddress?: null | string;
+          token: string;
+          updatedAt: number;
+          userAgent?: null | string;
+          userId: string;
+        }>
       >;
     };
   };

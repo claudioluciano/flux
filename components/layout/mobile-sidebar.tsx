@@ -1,0 +1,112 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Building2,
+  FileText,
+  LayoutDashboard,
+  Settings,
+  Users,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { SheetHeader, SheetTitle } from "@/components/ui/sheet";
+
+interface NavItem {
+  title: string;
+  href: string;
+  icon: React.ElementType;
+}
+
+const navItems: NavItem[] = [
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Entidades",
+    href: "/entities",
+    icon: Users,
+  },
+  {
+    title: "Documentos",
+    href: "/documents",
+    icon: FileText,
+  },
+];
+
+const bottomNavItems: NavItem[] = [
+  {
+    title: "Configurações",
+    href: "/settings",
+    icon: Settings,
+  },
+];
+
+export function MobileSidebar() {
+  const pathname = usePathname();
+
+  return (
+    <div className="flex h-full flex-col">
+      {/* Logo */}
+      <SheetHeader className="border-b px-4 py-3">
+        <SheetTitle className="flex items-center gap-2">
+          <Building2 className="h-6 w-6" />
+          <span>Flux</span>
+        </SheetTitle>
+      </SheetHeader>
+
+      {/* Navigation */}
+      <ScrollArea className="flex-1 px-3 py-4">
+        <nav className="flex flex-col gap-1">
+          {navItems.map((item) => {
+            const isActive =
+              pathname === item.href || pathname.startsWith(`${item.href}/`);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  isActive
+                    ? "bg-secondary text-secondary-foreground"
+                    : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.title}
+              </Link>
+            );
+          })}
+        </nav>
+      </ScrollArea>
+
+      {/* Bottom Navigation */}
+      <div className="border-t px-3 py-4">
+        <nav className="flex flex-col gap-1">
+          {bottomNavItems.map((item) => {
+            const isActive =
+              pathname === item.href || pathname.startsWith(`${item.href}/`);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  isActive
+                    ? "bg-secondary text-secondary-foreground"
+                    : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.title}
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+    </div>
+  );
+}
